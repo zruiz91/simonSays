@@ -58,8 +58,16 @@ function nextSequence() {
 
     let randomNumber = Math.floor(Math.random() * 4);
 
-    let randomChosenColor = buttonColors[nextSequence];
+    let randomChosenColor = buttonColors[randomNumber];
 
     gamePattern.push(randomChosenColor);
+
+    $("#" + randomChosenColor).fadeIn(100).fadeOut(100).fadeIn(100)
+
+    let buttonAudio = new Audio("sounds/" + randomChosenColor + ".mp3");
+
+    buttonAudio.play();
+
+    console.log(gamePattern);
 
 }
