@@ -4,39 +4,39 @@ let userClickedPattern = [];
 
 let buttonColors = ["red", "blue", "green", "yellow"];
 
-let blueAudio = new Audio("sounds/blue.mp3");
+// let blueAudio = new Audio("sounds/blue.mp3");
 
-let greenAudio = new Audio("sounds/green.mp3");
+// let greenAudio = new Audio("sounds/green.mp3");
 
-let redAudio = new Audio("sounds/red.mp3");
+// let redAudio = new Audio("sounds/red.mp3");
 
-let yellowAudio = new Audio("sounds/yellow.mp3");
+// let yellowAudio = new Audio("sounds/yellow.mp3");
 
-let wrongAudio = new Audio("sounds/wrong.mp3");
-
-//adds event listener for the button to flash when clicked
-$("#yellow").click(function () {
-    $("#yellow").fadeOut(100).fadeIn(100)
-    yellowAudio.play();
-});
+// let wrongAudio = new Audio("sounds/wrong.mp3");
 
 //adds event listener for the button to flash when clicked
-$("#blue").click(function () {
-    $("#blue").fadeOut(100).fadeIn(100)
-    blueAudio.play();
-});
+// $("#yellow").click(function () {
+//     $("#yellow").fadeOut(100).fadeIn(100)
+//     yellowAudio.play();
+// });
 
 //adds event listener for the button to flash when clicked
-$("#red").click(function () {
-    $("#red").fadeOut(100).fadeIn(100)
-    redAudio.play();
-});
+// $("#blue").click(function () {
+//     $("#blue").fadeOut(100).fadeIn(100)
+//     blueAudio.play();
+// });
 
 //adds event listener for the button to flash when clicked
-$("#green").click(function () {
-    $("#green").fadeOut(100).fadeIn(100)
-    greenAudio.play();
-});
+// $("#red").click(function () {
+//     $("#red").fadeOut(100).fadeIn(100)
+//     redAudio.play();
+// });
+
+//adds event listener for the button to flash when clicked
+// $("#green").click(function () {
+//     $("#green").fadeOut(100).fadeIn(100)
+//     greenAudio.play();
+// });
 
 //detects when any of the buttons are clicked and triggers a handler function called userChoeColor
 
@@ -50,7 +50,7 @@ $(".btn").click(function () {
 function chosenColor(color) {
     let userChosenColor = color;
     userClickedPattern.push(userChosenColor);
-    console.log(userClickedPattern);
+    playSound(userChosenColor);
 }
 
 //function that generates random number (0,1,2,3)
@@ -64,10 +64,16 @@ function nextSequence() {
 
     $("#" + randomChosenColor).fadeIn(100).fadeOut(100).fadeIn(100)
 
-    let buttonAudio = new Audio("sounds/" + randomChosenColor + ".mp3");
-
-    buttonAudio.play();
+    playSound(randomChosenColor);
 
     console.log(gamePattern);
 
+}
+
+
+//function that plays sound that corresponds to the color of the button to be used in nextSequence function and chosenColor function
+function playSound(name) {
+    let buttonAudio = new Audio("sounds/" + name + ".mp3");
+
+    buttonAudio.play();
 }
