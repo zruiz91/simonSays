@@ -1,5 +1,7 @@
 let gamePattern = [];
 
+let userClickedPattern = [];
+
 let buttonColors = ["red", "blue", "green", "yellow"];
 
 let blueAudio = new Audio("sounds/blue.mp3");
@@ -36,6 +38,20 @@ $("#green").click(function () {
     greenAudio.play();
 });
 
+//detects when any of the buttons are clicked and triggers a handler function called userChoeColor
+
+$(".btn").click(function () {
+    chosenColor(this.id);
+    // console.log(event.target.id);
+});
+
+//handler function that stores the id of the button thats been clicked
+
+function chosenColor(color) {
+    let userChosenColor = color;
+    userClickedPattern.push(userChosenColor);
+    console.log(userClickedPattern);
+}
 
 //function that generates random number (0,1,2,3)
 function nextSequence() {
