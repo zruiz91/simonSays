@@ -1,61 +1,42 @@
+
+
+let buttonColors = ["red", "blue", "green", "yellow"];
+
 let gamePattern = [];
 
 let userClickedPattern = [];
 
-let buttonColors = ["red", "blue", "green", "yellow"];
+let isFirstKeyPress = true;
 
-// let blueAudio = new Audio("sounds/blue.mp3");
+let level = 0;
 
-// let greenAudio = new Audio("sounds/green.mp3");
+//detects when a keyboard key is pressedfor the first time and then calls the nextSequence function
+$(document).keydown(function () {
+    if (isFirstKeyPress) {
+        $("#level-title").text("Level " + level);
+        nextSequence();
+        isFirstKeyPress = false;
+    }
 
-// let redAudio = new Audio("sounds/red.mp3");
-
-// let yellowAudio = new Audio("sounds/yellow.mp3");
-
-// let wrongAudio = new Audio("sounds/wrong.mp3");
-
-//adds event listener for the button to flash when clicked
-// $("#yellow").click(function () {
-//     $("#yellow").fadeOut(100).fadeIn(100)
-//     yellowAudio.play();
-// });
-
-//adds event listener for the button to flash when clicked
-// $("#blue").click(function () {
-//     $("#blue").fadeOut(100).fadeIn(100)
-//     blueAudio.play();
-// });
-
-//adds event listener for the button to flash when clicked
-// $("#red").click(function () {
-//     $("#red").fadeOut(100).fadeIn(100)
-//     redAudio.play();
-// });
-
-//adds event listener for the button to flash when clicked
-// $("#green").click(function () {
-//     $("#green").fadeOut(100).fadeIn(100)
-//     greenAudio.play();
-// });
-
+})
 //detects when any of the buttons are clicked and triggers a handler function called userChoeColor
-
 $(".btn").click(function () {
-    chosenColor(this.id);
+    let userChosenColor = $(this).attr("id");
+    userClickedPattern.push(userChosenColor);
+
+    animatePress(userChosenColor);
+    playSound(userChosenColor);
     // console.log(event.target.id);
 });
 
-//handler function that stores the id of the button thats been clicked
 
-function chosenColor(color) {
-    let userChosenColor = color;
-    userClickedPattern.push(userChosenColor);
-    animatePress(userChosenColor);
-    playSound(userChosenColor);
-}
 
 //function that generates random number (0,1,2,3)
 function nextSequence() {
+
+    level++;
+
+    $("#level-title" ).text("Level " + level);
 
     let randomNumber = Math.floor(Math.random() * 4);
 
@@ -63,13 +44,13 @@ function nextSequence() {
 
     gamePattern.push(randomChosenColor);
 
-    animatePress(randomChosenColor)
+    // animatePress(randomChosenColor)
 
-    // $("#" + randomChosenColor).fadeIn(100).fadeOut(100).fadeIn(100)
+    $("#" + randomChosenColor).fadeIn(100).fadeOut(100).fadeIn(100)
 
     playSound(randomChosenColor);
 
-    console.log(gamePattern);
+
 
 }
 
