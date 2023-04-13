@@ -50,6 +50,7 @@ $(".btn").click(function () {
 function chosenColor(color) {
     let userChosenColor = color;
     userClickedPattern.push(userChosenColor);
+    animatePress(userChosenColor);
     playSound(userChosenColor);
 }
 
@@ -62,7 +63,9 @@ function nextSequence() {
 
     gamePattern.push(randomChosenColor);
 
-    $("#" + randomChosenColor).fadeIn(100).fadeOut(100).fadeIn(100)
+    animatePress(randomChosenColor)
+
+    // $("#" + randomChosenColor).fadeIn(100).fadeOut(100).fadeIn(100)
 
     playSound(randomChosenColor);
 
@@ -71,9 +74,17 @@ function nextSequence() {
 }
 
 
-//function that plays sound that corresponds to the color of the button to be used in nextSequence function and chosenColor function
+//function that handles the button sounds
 function playSound(name) {
     let buttonAudio = new Audio("sounds/" + name + ".mp3");
 
     buttonAudio.play();
+}
+
+//function that handles the button animations
+function animatePress(currentColor) {
+    $("#" + currentColor).addClass("pressed");
+    setTimeout(function () {
+        $("#" + currentColor).removeClass("pressed");
+    }, 100)
 }
