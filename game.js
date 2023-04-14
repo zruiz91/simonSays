@@ -10,6 +10,7 @@ var started = false;
 
 let level = 0;
 
+
 //detects when a keyboard key is pressedfor the first time and then calls the nextSequence function
 $(document).keydown(function () {
     if (!started) {
@@ -95,7 +96,16 @@ function checkAnswer(currentLevel) {
     } else {
 
         console.log("wrong");
+        playSound("wrong");
 
+        $("body").addClass("game-over");
+
+        setTimeout(function () {
+
+            $("body").removeClass("game-over");
+        }, 200)
+
+        $("#level-title").text("Game Over, Press Any Key to Restart");
     }
 
 }
