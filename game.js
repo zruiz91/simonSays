@@ -6,16 +6,16 @@ let gamePattern = [];
 
 let userClickedPattern = [];
 
-let isFirstKeyPress = true;
+var started = false;
 
 let level = 0;
 
 //detects when a keyboard key is pressedfor the first time and then calls the nextSequence function
 $(document).keydown(function () {
-    if (isFirstKeyPress) {
+    if (!started) {
         $("#level-title").text("Level " + level);
         nextSequence();
-        isFirstKeyPress = false;
+        started = true;
     }
 
 })
@@ -24,9 +24,11 @@ $(".btn").click(function () {
     let userChosenColor = $(this).attr("id");
     userClickedPattern.push(userChosenColor);
 
-    animatePress(userChosenColor);
     playSound(userChosenColor);
+    animatePress(userChosenColor);
     // console.log(event.target.id);
+    console.log(userClickedPattern.length - 1);
+    checkAnswer(userClickedPattern.length - 1);
 });
 
 
@@ -34,9 +36,12 @@ $(".btn").click(function () {
 //function that generates random number (0,1,2,3)
 function nextSequence() {
 
+    //Once nextSequence() is triggered, reset the userClickedPattern to an empty array ready for the next level.
+    userClickedPattern = [];
+
     level++;
 
-    $("#level-title" ).text("Level " + level);
+    $("#level-title").text("Level " + level);
 
     let randomNumber = Math.floor(Math.random() * 4);
 
@@ -50,6 +55,7 @@ function nextSequence() {
 
     playSound(randomChosenColor);
 
+    console.log(gamePattern);
 
 
 }
@@ -68,4 +74,28 @@ function animatePress(currentColor) {
     setTimeout(function () {
         $("#" + currentColor).removeClass("pressed");
     }, 100)
+}
+
+//function that checks to see if the users answer matches the pattern given by the computer
+function checkAnswer(currentLevel) {
+
+    //checks if most recent user answer is the same as the game pattern
+    if (userClickedPattern[currentLevel] === gamePattern[currentLevel]) {
+
+        console.log("success");
+
+        //if recent user answer was correct then run nextSequence after timeout.
+        if (userClickedPattern.length === gamePattern.length) {
+
+            setTimeout(function () {
+                nextSequence();
+            }, 1000);
+        }
+
+    } else {
+
+        console.log("wrong");
+
+    }
+
 }
